@@ -1,5 +1,8 @@
 import tkinter as tk
 from tkinter import ttk
+from modo_estudo import Estudo
+from tkinter import messagebox
+import sqlite3
 
 class FlashcardC():
     def __init__(self):
@@ -73,6 +76,18 @@ class FlashcardC():
                                    command=self.salvar_cartao)
         salvar_button.pack(pady=10)
 
+        frame_botao = ttk.Frame(self.janela)
+        frame_botao.pack(side="bottom", 
+                         expand=True)
+
+        botao_excluir = ttk.Button(frame_botao,
+                                   command=self.excluir_cartao ,
+                                   text="Excluir", 
+                                   style="danger", 
+                                   width=20) 
+        botao_excluir.pack(side="left",padx=10)
+
+
         # Criando o Treeview (apenas uma vez)
         self.treeview = ttk.Treeview(self.janela, columns=("disciplina", "pergunta", "resposta"), show="headings")
         self.treeview.pack(pady=20)
@@ -100,6 +115,30 @@ class FlashcardC():
             self.disciplina_entry.delete(0, tk.END)
             self.pergunta_text.delete("1.0", tk.END)
             self.resposta_text.delete("1.0", tk.END)
+
+        # excluir carta
+    def excluir_cartao(self):
+        excluir_dados = self.lista.curselection()
+
+        if excluir_dados:
+                texto_tarefa = self.lista.get(excluir_dados[0])  # Obter o texto da tarefa
+                self.lista.delete(excluir_dados)
+
+                conexao = sqlite3.connect("./bd_lista_tarefas.sqlite")
+                cursor = conexao.cursor()
+
+                sql_delete = """
+                                DELETE FROM tarefa WHERE descricao_tarefa = ?;
+                            """
+                cursor.execute(sql_delete, (texto_tarefa,))  # Corrigido
+                conexao.commit()
+
+                cursor.close()
+                conexao.close()
+        else:
+                messagebox.showerror(message="Selecione um item antes de excluir")
+
+        
 
     def run(self):
         self.janela.mainloop()

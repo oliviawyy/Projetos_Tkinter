@@ -15,10 +15,11 @@ class Estudo():
 
 #Desafio Extra:
 #Implementar um 'Modo Estudo'. Numa nova janela (`Toplevel`), o sistema mostra a *pergunta* de um cartão aleatório. O usuário clica num botão 'Revelar Resposta' para ver a resposta.
-
-
- 
-
+        
+    # Função para iniciar o modo de estudo
+    
+    
+    
     def run(self):
         self.janela.mainloop()
 
