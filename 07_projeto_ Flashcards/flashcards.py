@@ -4,6 +4,7 @@ from modo_estudo import Estudo
 from tkinter import messagebox
 import sqlite3
 
+
 class FlashcardC():
     def __init__(self):
         # criando a janela
@@ -12,7 +13,8 @@ class FlashcardC():
         self.janela.geometry("800x700")
         self.janela.resizable(False, False)
 
-        self.janela.iconbitmap("07_projeto_ Flashcards/genio.ico")
+        # self.janela.iconbitmap("genio.ico")
+        
 
         self.rotulo = ttk.Label(self.janela,
                         text="Gerenciar cartões de estudo ┆⤿💌⌗",
@@ -29,11 +31,9 @@ class FlashcardC():
                                        )
         disciplina_label.pack(pady=(10, 0))
 
-        self.disciplina_entry = tk.Entry(self.janela, 
+        self.disciplina_entry = ttk.Entry(self.janela, 
                                           width=50, 
                                           foreground="blue",
-                                          borderwidth=1,
-                                          relief="solid",
                                           )
         self.disciplina_entry.pack(pady=(0, 10))
 
@@ -43,13 +43,12 @@ class FlashcardC():
                                    font=("Kristen ITC", 12), 
                                    foreground="lightskyblue")
         pergunta_label.pack(pady=(10, 0))
-
+# relief="solid",
         self.pergunta_text = tk.Text(self.janela, 
                                      height=2, 
                                      width=50, 
                                      wrap="word", 
                                      borderwidth=1, 
-                                     relief="solid",
                                      foreground="blue")
         self.pergunta_text.pack(pady=(0, 10))
 
@@ -65,7 +64,6 @@ class FlashcardC():
                                      width=50, 
                                      wrap="word",
                                      borderwidth=1, 
-                                     relief="solid",
                                      foreground="blue",
                                      )
         self.resposta_text.pack(pady=(0, 10))
@@ -83,7 +81,6 @@ class FlashcardC():
         botao_excluir = ttk.Button(frame_botao,
                                    command=self.excluir_cartao ,
                                    text="Excluir", 
-                                   style="danger", 
                                    width=20) 
         botao_excluir.pack(side="left",padx=10)
 
@@ -137,6 +134,22 @@ class FlashcardC():
                 conexao.close()
         else:
                 messagebox.showerror(message="Selecione um item antes de excluir")
+
+    def banco_dados(self):
+        conexao = sqlite3.connect("./bd_projeto_flashcards.sqlite3")
+
+        cursor = conexao.cursor()
+
+        cursor.execute("""
+                        CREATE TABLE IF NOT EXIST disciplina(
+                        disciplina VARCHAR(50) ,
+                        pergunta VARCHAR(50) ,
+                        resposta VARCHAR(50) PRIMARY KEY
+                       
+                       )             
+        """)
+
+
 
         
 

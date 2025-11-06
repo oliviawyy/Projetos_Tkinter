@@ -1,8 +1,12 @@
 import tkinter as tk
-from flashcards import FlashcardC
 from tkinter import Tk
 
+from tkinter import messagebox
+import sqlite3
+
+
 class Estudo():
+    
     def __init__(self):
         # criando a janela
         self.janela = tk.Tk()
@@ -15,7 +19,9 @@ class Estudo():
 
 #Desafio Extra:
 #Implementar um 'Modo Estudo'. Numa nova janela (`Toplevel`), o sistema mostra a *pergunta* de um cartão aleatório. O usuário clica num botão 'Revelar Resposta' para ver a resposta.
-        
+        #criando um rótulo
+      
+
     # Função para iniciar o modo de estudo
     
     
