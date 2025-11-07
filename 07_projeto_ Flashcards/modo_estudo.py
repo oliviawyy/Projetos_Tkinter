@@ -6,9 +6,9 @@ import sqlite3
 
 class Estudo():
     
-    def __init__(self):
+    def __init__(self, janela_pai):
         # criando a janela
-        self.janela = tk.Tk()
+        self.janela = tk.Toplevel(janela_pai)
         self.janela.title("Modo Estudo")
         self.janela.geometry("800x500")
         self.janela.resizable(False, False)
@@ -81,7 +81,7 @@ class Estudo():
         conexao.close()
         
 
-        self.pergunta_text.configure(text=f"{self.perguntas}")
+        self.pergunta_text.configure(text=f"{self.perguntas[0]}")
 
     def resposta(self):
         conexao = sqlite3.connect("bd_projeto_flashcards.sqlite3")
@@ -101,7 +101,7 @@ class Estudo():
         cursor.close()
         conexao.close()
 
-        self.respondida.configure(text=f"{self.respostas}")
+        self.respondida.configure(text=f"{self.respostas[0]}")
     
     
     def run(self):

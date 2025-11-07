@@ -6,10 +6,9 @@ import sqlite3
 
 
 class FlashcardC():
-    def __init__(self, JanelaPai):
-        self.janelapai = JanelaPai
+    def __init__(self):
         # criando a janela
-        self.janela = tk.Toplevel(JanelaPai)
+        self.janela = tk.Tk()
         self.janela.title("Flashcards")
         self.janela.geometry("800x700")
         self.janela.resizable(False, False)
@@ -85,15 +84,15 @@ class FlashcardC():
                                    width=20) 
         botao_excluir.pack(side="left",padx=10)
 
+
         # botao para ir para o modo estudo
         botao_estudo = ttk.Button(self.janela,
                                   text="Modo Estudo",
-                                  command=self.modo_estudo
+                                  command=self.estudo_janela
                                   )
-
-    def modo_estudo(self):
+        botao_estudo.pack(side="right", padx=5, pady=5)
         
-             
+
 
         # Criando o Treeview (apenas uma vez)
         self.treeview = ttk.Treeview(self.janela, columns=("codigo", "disciplina", "pergunta", "resposta"), show="headings")
@@ -137,6 +136,9 @@ class FlashcardC():
 
         # encerro a conexão
         conexao.close()
+
+    def estudo_janela(self):
+         Estudo(self.janela)
 
     def atualizar_tabela(self):
         #  vai ver todos os itens da treeview e deletar um por um
